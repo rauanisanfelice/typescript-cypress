@@ -2,6 +2,8 @@ import { Button, Paper, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { FormInputText } from "./components/FormInputText";
 
+import Alert from '@mui/material/Alert';
+
 
 interface IFormInput {
   name: string;
@@ -16,7 +18,11 @@ export const FormDemo = () => {
 
   const methods = useForm<IFormInput>({ defaultValues: defaultValues });
   const { handleSubmit, formState: { errors }, reset, control, setValue, watch } = methods;
-  const onSubmit = (data: IFormInput) => console.log(data);
+  const onSubmit = (data: IFormInput) => {
+    alert('Ok!');
+    console.log(data);
+  };
+
 
   return (
     <Paper
@@ -30,13 +36,17 @@ export const FormDemo = () => {
       <Typography variant="h3">Fomulário Teste</Typography>
 
       <FormInputText name="name" control={control} label="Nome" />
-      {errors.name && <span>Campo obrigatório</span>}
+      {errors.name &&
+        <Alert id="error-name" severity="error">
+          Campo obrigatório
+        </Alert>
+      }
 
-      <Button onClick={handleSubmit(onSubmit)} variant="contained" color="primary">
+      <Button name="btn-submit" onClick={handleSubmit(onSubmit)} variant="contained" color="primary">
         {" "}
         Salvar{" "}
       </Button>
-      <Button onClick={() => reset()} variant="contained" color="secondary">
+      <Button name="btn-clean" onClick={() => reset()} variant="contained" color="secondary">
         {" "}
         Limpar{" "}
       </Button>
