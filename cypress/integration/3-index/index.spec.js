@@ -26,7 +26,7 @@ describe('example validation form', () => {
 
     it('form submit error', () => {
         cy.get('button[name="btn-submit"]').click();
-        cy.get('span[id="error-name"]').should('contain','Campo obrigatório');
+        cy.get('#error-name').should('contain','Campo obrigatório');
         cy.screenshot();
     });
 
